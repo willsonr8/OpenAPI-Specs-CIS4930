@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
   title: Request Seating Options
-  description: Requests seating availability from server client.  
+  description: Requests seating availability from server client.
   version: 0.1.0
 servers:
   - url: http://api.example.com/request-seating/{movieID}/{dateID}/{showtimeID}/seats
@@ -14,7 +14,7 @@ paths:
       summary: Requests seating availability.
       description: This URL requests seating availability data for date/time/movie selections to showcase options that user may select.
       parameters: 
-	- movie: movieID
+      - movie: movieID
 	  in: path
 	  required: true
 	  description: Movie requested by user.
@@ -26,30 +26,30 @@ paths:
 	  required: true
 	  description: Date requested by user.
 	  schema: 
-	    type: int
+	    type: integer
 	    minimum: 1
 	- showtime: showtimeID
 	  in: path
 	  required: true
 	  description: Showtime requested by user.
 	  schema: 
-	    type: int
+	    type: integer
 	    minimum: 1
-     responses:
-     	'200':   
-          description: JSON object containing available movie seats. 
-          content:
-            application/json:
+       responses:
+         '200':
+	   description: JSON object containing available movie seats.
+           content:
+	    application/json:
               schema: 
                 type: array
-		  items: 
-                    $ref: '#/components/schemas/seat
+		items: 
+                  $ref: '#/components/schemas/seat
 	'404':    
            description: URL Not Found
 	   content: 
 	     application/json:
 	       schema: 
-		 $ref: '#/components/schemas/Error'
+	         $ref: '#/components/schemas/Error'
   /{seatID}:
     post:
       summary: Reserves selected seating.
