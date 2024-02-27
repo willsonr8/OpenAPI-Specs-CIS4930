@@ -14,7 +14,7 @@ paths:
       summary: Requests seating availability.
       description: This URL requests seating availability data for date/time/movie selections to showcase options that user may select.
       parameters: 
-      - movie: movieID
+        - movie: movieID
 	  in: path
 	  required: true
 	  description: Movie requested by user.
