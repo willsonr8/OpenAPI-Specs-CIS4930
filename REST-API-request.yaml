@@ -35,7 +35,7 @@ paths:
 	  schema: 
 	    type: int
 	    minimum: 1
-     responsess:
+     responses:
      	'200':   
           description: JSON object containing available movie seats. 
           content:
@@ -101,12 +101,12 @@ paths:
 	'500':   
           description: Internal Server Error
           content:
-            application/json
+            application/json:
 	      schema: 
 		$ref: '#/components/schemas/Error'
 	'404':    
           description: URL Not Found
 	  content: 
-	    application/json
+	    application/json:
 	      schema: 
 		$ref: '#/components/schemas/Error'
