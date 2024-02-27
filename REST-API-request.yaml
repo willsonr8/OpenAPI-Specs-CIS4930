@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  title: Request Seating Options
+  description: Requests seating availability from server client.  
+  version: 0.1.0
+servers:
+  - url: http://api.example.com/request-seating/{movieID}/{dateID}/{showtimeID}/seats
+    description: Seating request URL.
+  - url: http://movie-theater.request.com
+    description: Movie theater server for request processing.
+paths:
+  /:
+    GET:
+      summary: Requests seating availability.
+      description: This URL requests seating availability data for date/time/movie selections to showcase options that user may select.
+      parameters: 
+	- movie: movieID
+	  in: path
+	  required: true
+	  description: Movie requested by user.
+	  schema: 
+	    type: string
+	    minLength: 1
+	- date: dateID
+	  in: path
+	  required: true
+	  description: Date requested by user.
+	  schema: 
+	    type: int
+	    minimum: 1
+	- showtime: showtimeID
+	  in: path
+	  required: true
+	  description: Showtime requested by user.
+	  schema: 
+	    type: int
+	    minimum: 1
+      responses:
+        '200':   
+          description: JSON object containing available movie seats. 
+          content:
+            application/json:
+              schema: 
+                type: array
+		  items: 
+                    $ref: '#/components/schemas/seat
+	'404':    
+           description: URL Not Found
+	   content: 
+	     application/json
+	       schema: 
+		 $ref: '#/components/schemas/Error'
+
+  /{seatID}:   
+    POST:
+      summary: Reserves selected seating.
+      requestBody: 
+	required: True
+	content: 
+	  application/json:
+	    schema: 
+	      type: object
+	      properties: 
+	        movieID: 
+		  type: string
+		  minLength: 1
+		dateID: 
+		  type: integer
+		  minimum: 1
+		showtimeID:
+		  type: integer
+		  minimum: 1
+                seatID:
+		  type: string
+		  minimum: 1
+	      required: 
+		 - movieID
+		 - dateID
+		 - showtimeID
+		 - seatID
+      responses:
+        '200':    
+          description: JSON object containing selected seats.
+          content:
+            application/json:
+              schema: 
+                type: array
+		  items: 
+                    $ref: '#/components/schemas/seat
+	'404':    
+          description: URL Not Found
+	  content: 
+	    application/json:
+	      schema: 
+		$ref: '#/components/schemas/Error'
+
+  /{reservationID}
+    DELETE:
+      summary: Voids seat selection.
+      responses:
+        '200':    
+          description: Confirmation of reservation cancellation. 
+	'500':   
+          description: Internal Server Error
+          content:
+            application/json
+	      schema: 
+		$ref: '#/components/schemas/Error'
+	'404':    
+          description: URL Not Found
+	  content: 
+	    application/json
+	      schema: 
+		$ref: '#/components/schemas/Error'
