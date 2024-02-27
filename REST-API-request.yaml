@@ -35,8 +35,8 @@ paths:
 	  schema: 
 	    type: int
 	    minimum: 1
-    responses:
-        '200':   
+     responsess:
+     	'200':   
           description: JSON object containing available movie seats. 
           content:
             application/json:
