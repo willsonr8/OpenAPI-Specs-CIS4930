@@ -50,7 +50,7 @@ paths:
 	     application/json:
 	       schema: 
 		 $ref: '#/components/schemas/Error'
-   /{seatID}:   
+  /{seatID}:
     post:
       summary: Reserves selected seating.
       requestBody: 
